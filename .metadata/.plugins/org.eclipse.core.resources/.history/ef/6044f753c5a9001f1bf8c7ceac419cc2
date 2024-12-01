@@ -1,0 +1,18 @@
+package api.payload;
+
+
+// User POJO class is for generate the data or the request body which will be sent to UserEndpoints class
+// as a payload
+
+public class UserPojo {
+	
+	int id;
+	String username;
+	String firstName;
+	String lastName;
+	String email;
+	String password;
+	String phone;
+	int userStatus = 0;
+
+}

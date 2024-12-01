@@ -1,0 +1,179 @@
+package api.utilities;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.github.javafaker.File;
+
+public class XLUtility {
+	 
+    // creating static variables so fi,fo,wb..etc those are variables names
+
+    public static FileInputStream fi;
+    public static FileOutputStream fo;
+    public static XSSFWorkbook workbook;
+    public static XSSFSheet sheet;
+    public static XSSFRow row;
+    public static XSSFCell cell; 
+    public static CellStyle style;
+    String path;
+    
+    public XLUtility(String path)
+    {
+    	this.path = path;
+    }
+    
+
+
+    // xlfile --> the path of excel file 
+    // xlsheet --> the sheet name because in excek workbook there are multiple sheets
+    // this method will get the rows number
+    public int getRowCount(String sheetName) throws IOException
+    {
+          fi = new FileInputStream(path); // the excel file path
+          workbook = new XSSFWorkbook(fi); // get the workbook
+          sheet = workbook.getSheet(sheetName); // get the sheet 
+          int rowcount = sheet.getLastRowNum(); // get the number of raws in the sheet 
+          workbook.close(); // close workbook 
+          fi.close(); // close excel file 
+          return rowcount; // return the rowcount
+    }
+
+
+    // this method will get the columns/cells number
+    public int getCellCount(String sheetName, int rownum) throws IOException
+    {
+    	fi = new FileInputStream(path); // it will take the excel file path and will open the file in the reading mode
+          workbook = new XSSFWorkbook(fi); // it will take the excel file path as a parameter and get the workbook from it
+          sheet = workbook.getSheet(sheetName); // get the sheet 
+          row = sheet.getRow(rownum);
+          int cellcount = row.getLastCellNum(); // get the number of cells/columns in the sheet 
+          workbook.close(); // close workbook 
+          fi.close(); // close excel file 
+          return cellcount; // return the cellcount
+    }
+
+ 
+    // int rownum --> means in which raw exactly we want to read the data
+    // int colnum --> means in which cell/column exactly we want to read the data
+    // this method will read the data from the excel sheet
+    public String getCellData(String sheetName, int rownum, int colnum) throws IOException
+    {
+          fi = new FileInputStream(path); // open excel file
+          workbook = new XSSFWorkbook(fi); // open workbook 
+          sheet = workbook.getSheet(sheetName); // open sheet 
+          row = sheet.getRow(rownum); // get the particular raw number we passed as a parameter 
+          cell = row.getCell(colnum); // get the particular cell/column number we passed as a parameter 
+          String data;
+          try
+          {
+             // we can use this statement for reading the data from the specific raw and column/cell 
+             data = cell.toString(); 
+             
+
+
+             // Apache POI provides also a class called DataFormatter by using it we can read the data from the specific raw and column/cell 
+             DataFormatter formatter = new DataFormatter();
+             data = formatter.formatCellValue(cell); // returns the formatted value of the cell as a string regardless of the cell type
+
+          }
+          catch(Exception e)
+          {
+              data = "";
+          }
+           
+          workbook.close();
+          fi.close();
+          return data;
+
+    }
+
+
+    // this method will write the data in the excel sheet
+//    public void setCellData(String sheetName, int rownum, int colnum, String data) throws IOException
+//    {
+//       File xlfile = new File(path);
+//       
+//       if(!xlfile.exists()) // If file does not exist then create a new file 
+//       {
+//    	   workbook = new XSSFWorkbook();
+//    	   fo = new FileOutPutStream(path);
+//    	   workbook.write(fo);
+//    	   
+//       }
+//       
+//       fi = new FileInputStream(path);
+//       workbook = new XSSFWorkbook(fi);
+//       
+//       if(workbook.getSheetIndex(sheetName)== -1) // If sheet does not exist then create a new sheet 
+//    	        workbook.createSheet(sheetName);
+//       sheet = workbook.getSheet(sheetName);
+//       
+//       if(sheet.getRow(rownum)== null) // If row does not exist then create a new row 
+//	        sheet.createRow(rownum);
+//  row = sheet.getRow(rownum);
+//  
+//  
+//     cell = row.createCell(colnum);
+//     cell.setCellValue(data);
+//     fo = new FileOutputStream(path);
+//     workbook.write(fo);
+//     workbook.close();
+//     fi.close();
+//     fo.close();
+//		
+//
+//    }
+
+  
+    // this method is for styling the cell
+//    public void fillGreenColor(String xlfile, String xlsheet, int rownum, int colnum) throws IOException
+//    {
+//          fi = new FileInputStream(xlfile);
+//          wb = new XSSFWorkbook(fi);
+//          ws = wb.getSheet(xlsheet); 
+//          row.getRow(rownum);  
+//          cell = row.getCell(colnum); 
+//          style = wb.createCellStyle();
+//          style.setFillForegroundColor(IndexColors.GREEN.getIndex());
+//          style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+//          cell.setCellStyle(style);
+//          fo = new FileOutputStream(xlfile);
+//          workbook.write(fo);
+//          workbook.close();
+//          fi.close();
+//          fo.close();
+//    }
+
+
+    // this method is for styling the cell
+//    public static void fillRedColor(String xlfile, String xlsheet, int rownum, int colnum) throws IOException
+//    {
+//          fi = new FileInputStream(xlfile);
+//          wb = new XSSFWorkbook(fi);
+//          ws = wb.getSheet(xlsheet); 
+//          row.getRow(rownum);  
+//          cell = row.getCell(colnum); 
+//          style = wb.createCellStyle();
+//          style.setFillForegroundColor(IndexColors.RED.getIndex());
+//          style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+//          cell.setCellStyle(style);
+//          fo = new FileOutputStream(xlfile);
+//          wb.write(fo);
+//          wb.close();
+//          fi.close();
+//          fo.close();
+//    }
+
+  
+
+}

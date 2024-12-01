@@ -1,0 +1,36 @@
+package api.test;
+
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import org.testng.annotations.BeforeClass;
+
+import com.github.javafaker.Faker;
+
+import api.payload.User;
+
+public class UserTests2 {
+
+  Faker faker;
+  User userPayload;
+  public Logger logger; // for logs
+
+ @BeforeClass
+   public void Data()
+   {
+      faker = new Faker();
+      userPayload = new User();
+
+      userPayload.setId(faker.idNumber().hashCode());
+      userPayload.setUsername(faker.name().username());
+      userPayload.setFirstName(faker.name().firstName());
+      userPayload.setLastName(faker.name().lastName());
+      userPayload.setEmail(faker.internet().safeEmailAddress());
+      userPayload.setPassword(faker.internet().password(5,10));
+      userPayload.setPhone(faker.phoneNumber().cellPhone());
+
+      // logs
+
+      logger = LogManager.getLogger(this.getClass()); 
+      logger.debug("debugging")
+   }

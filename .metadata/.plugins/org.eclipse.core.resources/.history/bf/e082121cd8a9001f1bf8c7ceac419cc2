@@ -1,0 +1,14 @@
+package api.utilities;
+
+import java.io.IOException;
+
+public class DataProviders {
+	
+	@DataProvider(name = "Data")
+	public String[][] getAllData() throws IOException
+	{
+		String path = System.getProperty("user.dir")+ "//testData//Userdata.xlsx";
+		
+	}
+ 
+}

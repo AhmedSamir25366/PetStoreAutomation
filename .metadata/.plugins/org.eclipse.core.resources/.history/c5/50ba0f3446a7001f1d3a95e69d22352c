@@ -1,0 +1,12 @@
+package day1;
+
+public class HTTPRequests {
+	
+	// get single user
+	@Test
+	void getUser() 
+	{
+		
+	}
+
+}

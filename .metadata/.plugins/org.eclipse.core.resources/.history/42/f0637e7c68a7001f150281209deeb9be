@@ -1,0 +1,10 @@
+package day2;
+
+public class DiffWaysToCreatePostRequestBody {
+	
+	// hashmap collection
+	// pojo class
+	// org.json library
+	// external json file
+
+}

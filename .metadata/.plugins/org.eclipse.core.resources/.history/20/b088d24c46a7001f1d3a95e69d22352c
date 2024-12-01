@@ -1,0 +1,14 @@
+package day1;
+
+import org.testng.annotations.Test;
+
+public class HTTPRequests {
+	
+	// get single user
+	@Test
+	void getUser() 
+	{
+		
+	}
+
+}

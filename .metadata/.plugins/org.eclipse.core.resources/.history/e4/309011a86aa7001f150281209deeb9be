@@ -1,0 +1,65 @@
+package day2;
+
+import static io.restassured.RestAssured.*;
+
+import static io.restassured.matcher.RestAssuredMatchers.*;
+
+import static org.hamcrest.Matchers.*;
+
+import java.util.HashMap;
+
+
+import org.testng.annotations.Test;
+
+public class DiffWaysToCreatePostRequestBody {
+	
+	// hashmap collection
+	// pojo class
+	// org.json library
+	// external json file
+	
+	
+	// 1) Post request body using HashMap
+	
+	@Test
+	void testPostusingHashMap()
+	{
+		HashMap data = new HashMap();
+		data.put("name", "Scott");
+		data.put("location", "France");
+		data.put("phone", "7364736473");
+		String courseArr[] = {"C", "C++"}; // single dimensional Array which holds courses
+		data.put("courses", "courseArr");
+		
+		given()
+		    .contentType("application/json")
+		.body(data)
+		
+		.when()
+		   .post("http://localhost:3000/students")
+		
+		.then()
+		   .statusCode(201)
+		   .body("name", equalTo("Scott"))
+		   .body("location", equalTo("France"))
+		   .body("phone", equalTo("7364736473"))
+		   .body("courses", equalTo("courseArr"))
+		   .log().all();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

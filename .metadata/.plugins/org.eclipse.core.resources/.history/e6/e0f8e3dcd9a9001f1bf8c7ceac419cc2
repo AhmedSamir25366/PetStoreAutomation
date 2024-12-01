@@ -1,0 +1,24 @@
+package api.test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import api.utilities.*;
+
+import api.endpoints.UserEndpoints;
+import io.restassured.response.Response;
+
+public class DDTests {
+	
+    @Test(priority = 1, dataProvider = "Data")
+	public void testPostUser() 
+	{
+		Response response = UserEndpoints.createUser(userPayload);
+		response.then().log().all();
+		
+		// Validations
+		Assert.assertEquals(response.getStatusCode(), 200);
+	
+	}
+
+}

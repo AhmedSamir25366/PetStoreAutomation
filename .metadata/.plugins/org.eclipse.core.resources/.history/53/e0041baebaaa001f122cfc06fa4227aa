@@ -1,0 +1,70 @@
+package api.utilities;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
+public class ExtentReportManager implements ITestListener 
+{
+      public ExtentSparkReporter sparkReporter;
+      public ExtentReports extent;
+      public ExtentTest test;
+      String repName;
+
+      public void onStart(ITestContext testContext) {
+          String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()); // time stamp
+          repName = "Test-Report-" + timeStamp + ".html";
+         // UI of report
+         sparkReporter = new ExtentSparkReporter(".\\reports\\" + repName); // specify location of the report 
+         sparkReporter.config().setDocumentTitle("RestAssuredAutomationProject"); // Title of report
+         sparkReporter.config().setReportName("Pet Store Users API"); // Name of the report
+         sparkReporter.config().setTheme(Theme.DARK); // color of Report and it could be also Theme.STANDARD
+
+         // this 2 statmenets combine ExtentReports class with ExtentSparkReporter class together
+         extent = new ExtentReports();
+         extent.attachReporter(sparkReporter);
+
+         // populate common information on the report
+         extent.setSystemInfo("computer Name", "localhost");
+         extent.setSystemInfo("Application", "Pet Store Users API");
+         extent.setSystemInfo("Environment", "QA");
+         extent.setSystemInfo("Tester Name", "Pavan"); 
+         extent.setSystemInfo("os", "Window10");
+         extent.setSystemInfo("Browser name", "Chrome");
+
+      }
+ 
+      public void onTestSuccess(ITestResult result) {
+            test = extent.createTest(result.getName()); // will create a new entry in the report by using the name of test method which is passed
+            test.log(Status.PASS, "Test case Passed is:" + result.getName()); 
+
+    }
+
+      public void onTestFailure(ITestResult result) {
+            test = extent.createTest(result.getName()); // will create a new entry in the report by using the name of test method which is failed
+            test.log(Status.FAIL, "Test case Failed is:" + result.getName()); 
+            test.log(Status.FAIL, "Test Case Faile Cause is:" + result.getThrowable()); // give us the error message 
+
+    }
+
+     public void onTestSkipped(ITestResult result) {
+            test = extent.createTest(result.getName()); // will create a new entry in the report by using the name of test method which is skipped 
+            test.log(Status.SKIP, "Test case Failed is:" + result.getName()); 
+
+    }
+
+
+      public void onFinish(ITestResult testContext) {
+              extent.flush(); // it will write all the test information from the standard repositories to their output view
+    }
+
+}

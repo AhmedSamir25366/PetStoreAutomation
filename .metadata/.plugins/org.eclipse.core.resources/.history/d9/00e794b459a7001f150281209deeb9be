@@ -1,0 +1,79 @@
+package day1;
+
+import static io.restassured.RestAssured.*;
+
+import static io.restassured.matcher.RestAssuredMatchers.*;
+
+import static org.hamcrest.Matchers.*;
+
+import java.util.HashMap;
+
+
+import org.testng.annotations.Test;
+
+public class HTTPRequests {
+	
+	
+	
+	int id; // global variable - empty variable
+	
+	// get single user
+	@Test(priority = 1)
+	void getUsers() 
+	{
+		given()
+		
+		.when()
+		    .get("https://reqres.in/api/users?page=2")
+		
+		.then()
+		   .statusCode(200)
+		   .body("page", equalTo(2))
+		   .log().all();
+		
+	}
+	
+	
+	@Test(priority = 2)
+	void createUser()
+	{
+
+		HashMap data = new HashMap();
+		data.put("name", "pavan");
+		data.put("job", "trainer");
+		
+		id = given()
+		   .contentType("application/json")
+		   .body(data)
+		   
+		.when()
+		    .post("https://reqres.in/api/users")
+		    .jsonPath().getInt("id"); // to capture id from response body
+		    
+		
+	}
+	
+	@Test(priority = 3)
+	void updateUser()
+	{
+		HashMap data = new HashMap();
+		data.put("name", "john");
+		data.put("job", "teacher");
+		
+		id = given()
+		   .contentType("application/server")
+		   .body(data)
+		   
+		 .when()
+		     .put("https://reqres.in/api/users/" + id)
+		     .jsonPath().getInt("id")
+		     
+		 .then()
+		      .statusCode(201)
+		      .log().all();
+		
+		
+		
+	}
+
+}

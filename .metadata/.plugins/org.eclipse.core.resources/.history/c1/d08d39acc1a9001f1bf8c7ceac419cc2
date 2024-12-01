@@ -1,0 +1,15 @@
+package api.endpoints;
+
+// UserEndpoints.java file
+// This class is created to implement methods for CRUD operations 
+//(create , read, update , delete) requests for the user API
+// and these methods will be called from Test Cases classes later to perform validations on them
+
+public class UserEndpoints {
+	
+	public static void createUser() 
+	{
+		
+	}
+
+}

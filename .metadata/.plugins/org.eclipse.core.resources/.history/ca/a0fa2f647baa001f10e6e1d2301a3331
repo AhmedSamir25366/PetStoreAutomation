@@ -1,0 +1,26 @@
+package api.test;
+public class UserTests2 {
+
+  Faker faker;
+  User userPayload;
+  public Logger logger; // for logs
+
+ @BeforeClass
+   public void Data()
+   {
+      faker = new Faker();
+      userPayload = new User();
+
+      userPayload.setId(faker.idNumber().hashCode());
+      userPayload.setId(faker.name().username());
+      userPayload.setId(faker.name().firstname());
+      userPayload.setId(faker.name().lastname());
+      userPayload.setId(faker.internet().safeEmailAddress());
+      userPayload.setId(faker.internet().password(5,10));
+      userPayload.setId(faker.phoneNumber().cellPhone());
+
+      // logs
+
+      logger = LogManager.getLogger(this.getClass()); 
+      logger.debug("debugging")
+   }

@@ -1,0 +1,8 @@
+package api.endpoints;
+
+// UserEndpoints.java file
+// created for perform CRUD operations (create , read, update , delete) requests for the user API
+
+public class UserEndpoints {
+
+}

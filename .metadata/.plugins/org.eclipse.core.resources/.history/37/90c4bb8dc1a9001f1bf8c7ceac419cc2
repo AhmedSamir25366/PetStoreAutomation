@@ -1,0 +1,13 @@
+package api.endpoints;
+
+// UserEndpoints.java file
+// This class is created for perform CRUD operations (create , read, update , delete) requests for the user API
+
+public class UserEndpoints {
+	
+	public static void createUser() 
+	{
+		
+	}
+
+}

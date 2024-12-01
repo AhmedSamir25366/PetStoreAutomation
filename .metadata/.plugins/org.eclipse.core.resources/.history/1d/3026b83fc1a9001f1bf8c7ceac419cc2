@@ -1,0 +1,7 @@
+package api.endpoints;
+
+// UserEndpoints.java file
+
+public class UserEndpoints {
+
+}

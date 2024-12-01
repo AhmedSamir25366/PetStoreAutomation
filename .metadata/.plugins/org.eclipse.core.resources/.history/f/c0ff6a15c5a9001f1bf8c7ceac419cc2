@@ -1,0 +1,7 @@
+package api.payload;
+
+
+// User POJO class is for generate the data 
+public class UserPojo {
+
+}
